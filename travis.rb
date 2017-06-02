@@ -18,13 +18,12 @@ puts "repo url : #{jresp[0]['repo']['url']}"
 
 if(json['type']=="PushEvent")
   puts "payload/commits : #{json['payload']['commits']}"
-else if(json['type']=="PullRequestEvent")
+elsif(json['type']=="PullRequestEvent")
   puts "pull_request title : #{json['payload']['pull_request']['title']}"
-#  puts "pull_request description : #{json['payload']['pull_request']['body']}"
-#else if(json['type']=="IssueCommentEvent")
-#  puts "issue title : #{json['payload']['issue']['title']}"
-#  puts "comment body : #{json['payload']['comment']['body']}"
-#else puts
+  puts "pull_request description : #{json['payload']['pull_request']['body']}"
+elsif(json['type']=="IssueCommentEvent")
+  puts "issue title : #{json['payload']['issue']['title']}"
+  puts "comment body : #{json['payload']['comment']['body']}"
 end
 
 #puts "repo url : #{jresp[0]['repo']['url']}"
