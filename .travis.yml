@@ -30,7 +30,7 @@ script:
 - ls -a
 - cd ..
 - cd .travis
-#- ls -a
+- ls -a
 - cat job_stages
 - echo $TRAVIS_BUILD_ID
 - echo $TRAVIS_EVENT_TYPE
