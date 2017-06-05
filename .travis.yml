@@ -31,7 +31,7 @@ script:
 #- cd ..
 #- cd .travis
 #- ls -a
-- cat /home/.travsh/job_stages
+- cat /home/.travis/job_stages
 - echo $TRAVIS_BUILD_ID
 - echo $TRAVIS_EVENT_TYPE
 - echo $TRAVIS_BUILD_NUMBER
