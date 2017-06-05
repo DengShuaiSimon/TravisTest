@@ -12,10 +12,7 @@ before_install:
 
 script: 
 - curl -o pulls.html https://api.github.com/repos/DengShuaiSimon/TravisTest/events
-- cd /home/travis/.travis
-- pwd
-- ls -a
-- cat job_stages
+- cat cd /home/travis/.travis/job_stages
 - echo $TRAVIS_BUILD_ID
 - echo $TRAVIS_EVENT_TYPE
 - echo $TRAVIS_BUILD_NUMBER
