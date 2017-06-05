@@ -27,8 +27,8 @@ script:
 ##- cat .travis_packer_templates_rspec.json
 #- cd builds
 - pwd
-#- ls -a
-#- cd ..
+- ls -a
+- cd ..
 - cd .travis
 #- ls -a
 - cat job_stages
