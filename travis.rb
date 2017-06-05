@@ -37,7 +37,7 @@ if(event_type == "pull_request")
   post_uri = URI.parse(post_url)
   params = {} 
   params["body"] = 'successful'
-  res = Net::HTTP.post_form(uri, params)  
+  res = Net::HTTP.post_form(post_uri, params)  
 
   #return cookie 
   puts res.header['set-cookie'] 
