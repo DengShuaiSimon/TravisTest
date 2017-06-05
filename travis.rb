@@ -31,5 +31,7 @@ if(event_type == "pull_request")
   puts "title : #{title}"
   body = jresp['body']
   puts "body : #{body}"
+  post_url = "https://api.github.com/repos/#{ower_repo}/issues/#{pull_number}/comments"
+  system('curl -d "body="lllllll"" "#{post_url}"')
 end
 
