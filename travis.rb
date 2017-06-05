@@ -34,12 +34,15 @@ if(event_type == "pull_request")
   post_url = "https://api.github.com/repos/#{ower_repo}/issues/#{pull_number}/comments"
   puts post_url
  
-  Net::HTTP.start(post_url.host, post_url.port) do |http|
-  req = Net::HTTP::Post.new(post_url.path)
-  req.set_form_data({ 'body' => 'add this comment'})
-  puts http.request(req).body
-  end
+  post_uri = URI.parse(post_url)
+  params = {} 
+  params["body"] = 'successful'
+  res = Net::HTTP.post_form(uri, params)  
 
+  #return cookie 
+  puts res.header['set-cookie'] 
+  #return html body
+  puts res.body
   
 end
 
