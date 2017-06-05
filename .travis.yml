@@ -12,26 +12,26 @@ before_install:
 
 script: 
 - curl -o pulls.html https://api.github.com/repos/DengShuaiSimon/TravisTest/events
-#- cd ..
-#- cd ..
-#- ls -a
+- cd ..
+- cd ..
+- ls -a
 - pwd
-#- cd ..
-#- ls -a
+- cd ..
+- ls -a
 #- cat build.sh
 #- cd build
-#- pwd
+- pwd
 #- ls -a
-#- cd ..
+- cd ..
 ##- cat .travis_ci_environment.yml
 ##- cat .travis_packer_templates_rspec.json
 #- cd builds
-#- pwd
+- pwd
 #- ls -a
 #- cd ..
-#- cd .travis
+- cd .travis
 #- ls -a
-- cat /home/.travis/jobstages
+- cat job_stages
 - echo $TRAVIS_BUILD_ID
 - echo $TRAVIS_EVENT_TYPE
 - echo $TRAVIS_BUILD_NUMBER
