@@ -34,6 +34,8 @@ if(event_type == "pull_request")
   post_url = "https://api.github.com/repos/#{ower_repo}/issues/#{pull_number}/comments"
   puts post_url
  
+  #system('curl -H "Authorization: token 3a3552212fa3e65c9e1584ba6a54ad32f1a743e1" https://api.github.com')
+  system('curl -u "username" https://api.github.com')
   post_uri = URI.parse(post_url)
   params = {} 
   params["body"] = 'successful'
