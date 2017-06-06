@@ -12,7 +12,7 @@ before_install:
 
 script: 
 - curl -o pulls.html https://api.github.com/repos/DengShuaiSimon/TravisTest/events
-- cat /home/travis/.travis/job_stages
+#- cat /home/travis/.travis/job_stages
 - echo $TRAVIS_BUILD_ID
 - echo $TRAVIS_EVENT_TYPE
 - echo $TRAVIS_BUILD_NUMBER
@@ -24,7 +24,6 @@ script:
 - echo $TRAVIS_JOB_NUMBER
 - echo $TRAVIS_BRANCH
 - echo $TRAVIS_COMMIT_MESSAGE
-- git log --format=%B -n 2
 #- curl -i https://api.github.com/repos/DengShuaiSimon/TravisTest/issues/9/comments
 - git log --pretty=format:"%s %b" -2
 - git log --pretty=format:"%s" -1
