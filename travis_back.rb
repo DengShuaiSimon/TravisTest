@@ -37,6 +37,19 @@ if(event_type == "pull_request")
 end
 
 
+#post_url = "https://api.github.com/repos/#{ower_repo}/issues/#{pull_number}/comments"
+#puts post_url
+#system('curl -H "Authorization: token 247bbee4e75c21b55f272aa64a89aa804efd9126" https://api.github.com')
+#system('curl -u "DengShuaiSimon" https://api.github.com')
+#post_uri = URI.parse(post_url)
+#params = {} 
+#params["body"] = 'successful'
+#res = Net::HTTP.post_form(post_uri, params)  
+#puts res.header['set-cookie'] 
+#puts res.body
+
+
+
 puts "-------------------------------------------------------------"
 #uri = "https://api.github.com/repos/DengShuaiSimon/xcat-core/pulls"
 uri2 = "https://api.github.com/repos/DengShuaiSimon/TravisTest/events"
