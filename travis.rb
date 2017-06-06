@@ -31,10 +31,23 @@ if(event_type == "pull_request")
   puts "title : #{title}"
   body = jresp['body']
   puts "body : #{body}"
-  if(title != "update")
-    raise "This pull_request have a wrong format. Fix it!"
-  end
   
+  # Remove digits
+  #title = title.gsub!(/\D/, "")
+  
+  if(!(title =~ /^Add|Refine test case|cases for issue|feature(.*)/))
+    raise "The title of this pull_request have a wrong format. Fix it!"
+  end
+  if(!(body =~ (/Add|Refine \d case|cases in this pull request(.*)/m))||!(body =~ (/This|These case|cases is|are added|refined for issue|feature(.*)/m))||!(body =~ (/This pull request is for task(.*)/m)))
+    raise "The description of this pull_request have a wrong format. Fix it!"
+  end
+ 
+    
+    
+    
+    
+    
+    
   #post_url = "https://api.github.com/repos/#{ower_repo}/issues/#{pull_number}/comments"
   #puts post_url
   #system('curl -H "Authorization: token 247bbee4e75c21b55f272aa64a89aa804efd9126" https://api.github.com')
