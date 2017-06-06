@@ -32,7 +32,7 @@ if(event_type == "pull_request")
   body = jresp['body']
   puts "body : #{body}"
   if(title != "update")
-    raise "Error Format"
+    raise "This pull_request have a wrong format. Fix it!"
   end
   
   #post_url = "https://api.github.com/repos/#{ower_repo}/issues/#{pull_number}/comments"
