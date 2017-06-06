@@ -31,6 +31,9 @@ if(event_type == "pull_request")
   puts "title : #{title}"
   body = jresp['body']
   puts "body : #{body}"
+  if(title != "update")
+    raise "This pull_request have a wrong format. Fix it!"
+  end
 end
 
 
