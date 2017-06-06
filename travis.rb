@@ -31,7 +31,9 @@ if(event_type == "pull_request")
   puts "title : #{title}"
   body = jresp['body']
   puts "body : #{body}"
-  
+  if(title != "update")
+    error("格式不正确")
+  end
   
   #post_url = "https://api.github.com/repos/#{ower_repo}/issues/#{pull_number}/comments"
   #puts post_url
