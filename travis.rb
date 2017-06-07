@@ -21,7 +21,7 @@ puts "event_type : #{event_type}"
 
 #print all path at current path
 puts "work path : #{Dir.pwd}"
-Find.find('/home/travis/build/DengShuaiSimon/xcat-core') do |path| 
+Find.find('/home/travis/build/DengShuaiSimon/TravisTest') do |path| 
   puts path unless FileTest.directory?(path) 
 end 
 
