@@ -36,11 +36,12 @@ Find.find('/home/travis/build/DengShuaiSimon/xcat-core') do |path|
     #puts "\n"
     if(file_type[1] == ".pm")
       puts "path : #{path}"
-      #system "perl -I perl-xCAT/ -I xCAT-server/lib/perl/ -I /etc/perl -I /usr/local/lib/perl/5.18.2 -I /usr/local/share/perl/5.18.2 -I /usr/lib/perl5 -I /usr/share/perl5 -I /usr/lib/perl/5.18 -I /usr/share/perl/5.18 -I /usr/local/lib/site_perl -c #{path}"
       #system "perl -I perl-xCAT/ -I perl-xCAT/ds-perl-lib -I xCAT-server/lib/perl/ -c #{path}"
-      output = `perl -I perl-xCAT/ -I perl-xCAT/ds-perl-lib -I xCAT-server/lib/perl/ -c #{path} > perl_out.txt`
-      puts output
-      `cat perl_out.txt`
+      #`export VAR=$(perl -I perl-xCAT/ -I perl-xCAT/ds-perl-lib -I xCAT-server/lib/perl/ -c #{path} 2>&1)`
+      result = %x[perl -I perl-xCAT/ -I perl-xCAT/ds-perl-lib -I xCAT-server/lib/perl/ -c #{path} 2>&1]
+      #result = `perl -I perl-xCAT/ -I perl-xCAT/ds-perl-lib -I xCAT-server/lib/perl/ -c #{path} 2>&1`
+      p result
+      puts "   \033[31mRed (31)\033[0m\n"  
       puts "\n"
     end
   end
@@ -48,7 +49,8 @@ Find.find('/home/travis/build/DengShuaiSimon/xcat-core') do |path|
 end 
 puts "------------------------------------------------------------------------------------------------------------------------"
 #`cat perl_out.log`
-
+#`cat output.txt`
+puts "------------------------------------------------------------------------------------------------------------------------"
 
 
 if(event_type == "pull_request")
