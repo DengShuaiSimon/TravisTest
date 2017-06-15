@@ -3,7 +3,8 @@ require 'rubygems'
 #require 'open-uri'
 require 'json'
 require 'net/http'
-#require 'travis'
+require 'uri'
+#require 'pry'
 require 'find'
 
 #repo =Travis::Repository.current
@@ -17,8 +18,24 @@ puts "branch : #{branch}"
 #event_type = system('echo $TRAVIS_EVENT_TYPE')
 event_type = ENV['TRAVIS_EVENT_TYPE']
 puts "event_type : #{event_type}"
+token = ENV["GITHUB_TOKEN"]
+puts "token : #{token}"
+username = ENV['USERNAME']
+puts "username : #{username}"
+password = ENV["PASSWORD"]
+puts "password : #{password}"
+
+#build
+#`gpg --gen-key`
+#`sudo ./build-ubunturepo -c UP=0 BUILDALL=1;`
+#`gpg --list-keys`
+#`gpg --gen-key`
 
 
+
+
+######################################  check syntax  ################################################
+resultArr = Array.new
 #print all path at current path
 puts "work path : #{Dir.pwd}"
 Find.find('/home/travis/build/DengShuaiSimon/xcat-core') do |path| 
@@ -36,23 +53,53 @@ Find.find('/home/travis/build/DengShuaiSimon/xcat-core') do |path|
     #puts "\n"
     if(file_type[1] == ".pm")
       puts "path : #{path}"
-      #system "perl -I perl-xCAT/ -I perl-xCAT/ds-perl-lib -I xCAT-server/lib/perl/ -c #{path}"
-      #`export VAR=$(perl -I perl-xCAT/ -I perl-xCAT/ds-perl-lib -I xCAT-server/lib/perl/ -c #{path} 2>&1)`
-      result = %x[perl -I perl-xCAT/ -I perl-xCAT/ds-perl-lib -I xCAT-server/lib/perl/ -c #{path} 2>&1]
-      #result = `perl -I perl-xCAT/ -I perl-xCAT/ds-perl-lib -I xCAT-server/lib/perl/ -c #{path} 2>&1`
-      p result
-      puts "   \033[31mRed (31)\033[0m\n"  
+      result = %x[perl -I perl-xCAT/ -I ds-perl-lib -I xCAT-server/lib/perl/ -c #{path} 2>&1]
+      #result = `perl -I perl-xCAT/ -I ds-perl-lib -I xCAT-server/lib/perl/ -c #{path} 2>&1`
+      puts result
+      puts "result[-3..-2] : #{result[-3..-2]}"
+
+      if(result[-3..-2]!="OK")
+        #p result
+        resultArr.push(result)
+      end
+
       puts "\n"
     end
   end
   
 end 
-puts "------------------------------------------------------------------------------------------------------------------------"
-#`cat perl_out.log`
-#`cat output.txt`
-puts "------------------------------------------------------------------------------------------------------------------------"
+
+puts "\033[31m error begin---------------------------------------------------------------------------------------------------------\033[0m\n"
+#puts "\033[31m#{resultArr}\033[0m\n"
+resultArr.each{|x| puts "\033[31m#{x}\033[0m\n",""}
+puts "\033[31m error   end---------------------------------------------------------------------------------------------------------\033[0m\n"
+#raise "There is a syntax error on the above file. Fix it!"
 
 
+
+
+####################   add comments  ########################## 
+number= "1"
+#post_url = "https://api.github.com/repos/#{ower_repo}/issues/#{pull_number}/comments"
+post_url = "https://api.github.com/repos/#{ower_repo}/issues/#{number}/comments"
+puts post_url
+
+`curl -u "#{username}:#{password}" -X POST -d '{"body":"hope this work2"}'  #{post_url}`
+
+#echo "Add comment in issue $number"
+#`curl -d '{"body":"successful"}' "#{post_url}"`
+`curl -X POST -s -u "#{username}:#{token}" -H "Content-Type: application/json" -d '{"body": "successful!"}' #{post_url}`
+#`curl -X POST \
+#     -u #{token}:x-oauth-basic \
+#     -H "Content-Type: application/json" \
+#     -d "{\"body\": \"successful!\"}" \
+#     https://api.github.com/repos/DengShuaiSimon/xcat-core/issues/1/comments`
+
+
+
+
+
+##########################     pull_request format check   ####################
 if(event_type == "pull_request")
   #pull_number = system('echo $TRAVIS_PULL_REQUEST')
   pull_number = ENV['TRAVIS_PULL_REQUEST']
@@ -79,17 +126,14 @@ if(event_type == "pull_request")
  
     
     
-    
-    
-  #post_url = "https://api.github.com/repos/#{ower_repo}/issues/#{pull_number}/comments"
-  #puts post_url
-  #system('curl -H "Authorization: token 247bbee4e75c21b55f272aa64a89aa804efd9126" https://api.github.com')
-  #system('curl -u "DengShuaiSimon" https://api.github.com')
-  #post_uri = URI.parse(post_url)
-  #params = {} 
-  #params["body"] = 'successful'
-  #res = Net::HTTP.post_form(post_uri, params)  
-  #puts res.header['set-cookie'] 
-  #puts res.body
+  ########################   add  comments   ###########################  
+  post_url = "https://api.github.com/repos/#{ower_repo}/issues/#{pull_number}/comments"
+  puts post_url
+  post_uri = URI.parse(post_url)
+  params = {} 
+  params["body"] = 'successful'
+  res = Net::HTTP.post_form(post_uri, params)  
+  puts res.header['set-cookie'] 
+  puts res.body
   
 end
