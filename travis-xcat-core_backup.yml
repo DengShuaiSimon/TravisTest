@@ -3,10 +3,8 @@ language: ruby
 dist: trusty
 sudo: required
 before_install: 
-- sudo apt-get install -y git reprepro devscripts debhelper libsoap-lite-perl libdbi-perl quilt openssh-server rpm ubuntu-keyring ubuntu-extras-keyring debian-archive-keyring debian-keyring;
-#- yum clean metadata
-#- yum install -y rpm-sign expect  chkconfig openssh-server git net-tools rpm-build  createrepo perl-DBI perl-Sys-Syslog perl-Data-Dumper
-- ls -a /usr/bin
+#- sudo apt-get install -y git reprepro devscripts debhelper libsoap-lite-perl libdbi-perl quilt openssh-server rpm gnupg  ubuntu-keyring ubuntu-extras-keyring debian-archive-keyring debian-keyring nginx;
+- sudo apt-get install -y git reprepro devscripts debhelper libsoap-lite-perl libdbi-perl quilt openssh-server dpkg
 - perl -v
 #- echo yes > perl -MCPAN -e shell
 #- install Crypt::Rijndael Confluent::Client Confluent::TLV Expect HTTP::Async HTTP::Headers IO::Socket::SSL JSON LWP LWP::Simple Net::Telnet Net::SSLeay Net::DNS probe_global_constant probe_utils SOAP::Lite SNMP XML::Simple
@@ -35,10 +33,9 @@ before_install:
 - gem install json
 - gem install activesupport
 - gem install net
-#- gem install travis
-- ruby ./travis.rb
-- export var=$(ls -a)
-- echo "$var"
+- gem install pry
+#- ruby ./travis.rb
+
 
 script: 
 #- curl -o pulls.html https://api.github.com/repos/DengShuaiSimon/TravisTest/events
@@ -64,3 +61,25 @@ script:
 - perl -I./perl-xCAT/ -c ./xCAT-server/lib/xcat/plugins/xnba.pm
 - gpg --list-keys
 - sudo ./build-ubunturepo -c UP=0 BUILDALL=1;
+- ls
+- cd ..
+- ls -a
+- cd ..
+- ls -a
+- cd xcat-core
+- sudo ./mklocalrepo.sh
+- sudo chmod 777 /etc/apt/sources.list
+- sudo echo "deb [arch=amd64] http://xcat.org/files/xcat/repos/apt/xcat-dep trusty main" >> /etc/apt/sources.list
+- sudo echo "deb [arch=ppc64el] http://xcat.org/files/xcat/repos/apt/xcat-dep trusty main" >> /etc/apt/sources.list
+- sudo cat /etc/apt/sources.list
+- sudo wget -O - "http://xcat.org/files/xcat/repos/apt/apt.key" | sudo apt-key add -
+- sudo apt-get install software-properties-common
+- sudo apt-get install clean all
+- sudo apt-get update
+#- sudo /opt/xcat/share/xcat/scripts/setup-local-client.sh
+#- sudo apt-get install xCAT --force-yes -y
+- sudo apt-get install xCAT --force-yes
+- source /etc/profile.d/xcat.sh
+- sudo /opt/xcat/share/xcat/scripts/setup-local-client.sh travis
+- lsxcatd -v
+- tabdump site
